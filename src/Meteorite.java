@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Alien {
+public class Meteorite {
 
     //VARIABLE DECLARATION SECTION
     //Here's where you state which variables you are going to use.
@@ -22,7 +22,7 @@ public class Alien {
 
     //This is a SECOND constructor that takes 3 parameters.  This allows us to specify the hero's name and position when we build it.
     // if you put in a String, an int and an int the program will use this constructor instead of the one above.
-    public Alien(int pXpos, int pYpos, int pHeight, int pWidth, int pDx, int pDy) {
+    public Meteorite(int pXpos, int pYpos, int pHeight, int pWidth, int pDx, int pDy) {
         xpos = pXpos;
         ypos = pYpos;
         dx = pDx;
@@ -30,24 +30,25 @@ public class Alien {
         width = pWidth;
         height = pHeight;
         isAlive = true;
-    } // constructor
+        rec = new Rectangle(xpos, ypos, height, width);
 
+    } // constructor
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
         rec = new Rectangle(xpos, ypos, height, width);
 
         xpos = xpos + dx;
-        ypos = ypos + dy;
-        //if (xpos >= 990) {
-           // dx = 0;
+        ypos = 315;
+        if (xpos >= 990) {
+            dx = -10;
             //width = width +20;
             //height = height +20;
-        //}
-        //if (xpos <= 0) {
-           // dx = 0;
-        //}
-        //if (xpos >= 990) {
-            //xpos = 0;
+        }
+        if (xpos <= 0) {
+            dx = 10;
+        }
+        if(xpos >= 990){
+            xpos = 0;
             //width = width +20;
             //height = height +20;
         }
@@ -62,4 +63,4 @@ public class Alien {
         //width+=30;
         //}
     }
-
+}

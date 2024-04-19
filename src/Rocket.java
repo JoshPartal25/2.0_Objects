@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Alien {
+public class Rocket {
 
     //VARIABLE DECLARATION SECTION
     //Here's where you state which variables you are going to use.
@@ -22,7 +22,7 @@ public class Alien {
 
     //This is a SECOND constructor that takes 3 parameters.  This allows us to specify the hero's name and position when we build it.
     // if you put in a String, an int and an int the program will use this constructor instead of the one above.
-    public Alien(int pXpos, int pYpos, int pHeight, int pWidth, int pDx, int pDy) {
+    public Rocket(int pXpos, int pYpos, int pHeight, int pWidth, int pDx, int pDy) {
         xpos = pXpos;
         ypos = pYpos;
         dx = pDx;
@@ -39,27 +39,26 @@ public class Alien {
         xpos = xpos + dx;
         ypos = ypos + dy;
         //if (xpos >= 990) {
-           // dx = 0;
-            //width = width +20;
-            //height = height +20;
+        // dx = 0;
+        //width = width +20;
+        //height = height +20;
         //}
         //if (xpos <= 0) {
-           // dx = 0;
+        // dx = 0;
         //}
         //if (xpos >= 990) {
-            //xpos = 0;
-            //width = width +20;
-            //height = height +20;
-        }
-        //if(ypos<=0){
-        //dy=10;
-        //width+=30;
-        //height+=30;
-        //}
-        //if(ypos>=690){
-        // dy=-10;
-        //width+=30;
-        //width+=30;
-        //}
+        //xpos = 0;
+        //width = width +20;
+        //height = height +20;
     }
-
+    //if(ypos<=0){
+    //dy=10;
+    //width+=30;
+    //height+=30;
+    //}
+    //if(ypos>=690){
+    // dy=-10;
+    //width+=30;
+    //width+=30;
+    //}
+}

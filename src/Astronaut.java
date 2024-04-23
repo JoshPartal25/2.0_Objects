@@ -1,8 +1,5 @@
 import java.awt.*;
 
-/**
- * Created by chales on 11/6/2017.
- */
 public class Astronaut {
 
     //VARIABLE DECLARATION SECTION
@@ -14,9 +11,8 @@ public class Astronaut {
     public int dy;                    //the speed of the hero in the y direction
     public int width;
     public int height;
-    public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
+    public boolean isAlive;//a boolean to denote if the hero is alive or dead.
     public Rectangle rec;
-
 
     // METHOD DEFINITION SECTION
 
@@ -33,9 +29,7 @@ public class Astronaut {
         dy = pDy;
         width = pWidth;
         height = pHeight;
-        rec = new Rectangle(xpos, ypos, height, width);
         isAlive = true;
- 
     } // constructor
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
@@ -44,32 +38,27 @@ public class Astronaut {
 
         xpos = xpos + dx;
         ypos = ypos + dy;
-
-    if(xpos >= 990){
-        dx = -10;
-        //width = width + 20;
+        //if (xpos >= 990) {
+        // dx = 0;
+        //width = width +20;
         //height = height +20;
-    }
-    if(xpos <= 0){
-        dx = 10;
+        //}
+        //if (xpos <= 0) {
+        // dx = 0;
+        //}
+        //if (xpos >= 990) {
+        //xpos = 0;
         //width = width +20;
         //height = height +20;
     }
-    if(ypos<=0){
-            dy=10;
-        //width+=30;
-        //height+=30;
-    }
-    if(ypos>=690){
-        dy=-10;
-        //width+=30;
-        //width+=30;
-        }
-    }
+    //if(ypos<=0){
+    //dy=10;
+    //width+=30;
+    //height+=30;
+    //}
+    //if(ypos>=690){
+    // dy=-10;
+    //width+=30;
+    //width+=30;
+    //}
 }
-
-
-
-
-
-

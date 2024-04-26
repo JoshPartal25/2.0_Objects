@@ -55,7 +55,7 @@ public class BasicGameApp implements Runnable, KeyListener{
 	private Meteorite meteorite;
 	private Astronaut astronaut;
 	public int score = 0;
-
+//
    // Main method definition
    // This is the code that runs first and automatically
 	public static void main(String[] args) {

@@ -42,7 +42,7 @@ public class BasicGameApp implements Runnable, KeyListener{
 	public BufferStrategy bufferStrategy;
 	public Image fireballPic;
 	public Image background;
-	public Image alienPic;
+	public Image lavaMonsterPic;
 	public Image meteoritePic;
 
 	public Image astronautPic;
@@ -51,7 +51,7 @@ public class BasicGameApp implements Runnable, KeyListener{
    //These are things that are made up of more than one variable type
 	public Fireball[] aFireball;
 	private Fireball fireball;
-	private Alien alien;
+	private LavaMonster lavaMonster;
 	private Meteorite meteorite;
 	private Astronaut astronaut;
 	public int score = 0;
@@ -75,8 +75,8 @@ public class BasicGameApp implements Runnable, KeyListener{
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		fireballPic = Toolkit.getDefaultToolkit().getImage("Fireball.png"); //load the picture
-		alienPic = Toolkit.getDefaultToolkit().getImage("download.png"); //load the picture
-		meteoritePic = Toolkit.getDefaultToolkit().getImage("download.jpg"); //load the picture
+		lavaMonsterPic = Toolkit.getDefaultToolkit().getImage("LavaMonster.png"); //load the picture
+		meteoritePic = Toolkit.getDefaultToolkit().getImage("Meteorite.png"); //load the picture
 		astronautPic = Toolkit.getDefaultToolkit().getImage("Astronaut.png"); //load the picture
 		background = Toolkit.getDefaultToolkit().getImage("Background.png"); //load the picture
 		fireball = new Fireball(400,100,100,100,10,10);
@@ -84,7 +84,7 @@ public class BasicGameApp implements Runnable, KeyListener{
 		for(int i = 0; i < 500; i++){
 			aFireball[i] = new Fireball((int)(Math.random() * 100), (int) (Math.random()* 80), 50, 100, 4, 5);
 		}
-		alien = new Alien(50,40,50,50,10,10);
+		lavaMonster = new LavaMonster(50,40,50,50,10,10);
 		meteorite = new Meteorite(400,100,50,75,10,10);
 		astronaut = new Astronaut(100,40,50,50,10,10);
 
@@ -118,13 +118,13 @@ public class BasicGameApp implements Runnable, KeyListener{
 			aFireball[i].move();
 		}
 		fireball.move();
-		alien.move();
+		lavaMonster.move();
 		meteorite.move();
 		astronaut.move();
 	}
 
 	public void checkIntersections(){
-		if(fireball.rec.intersects(alien.rec)){
+		if(fireball.rec.intersects(lavaMonster.rec)){
 			fireball.isAlive = false;
 			score +=1;
 			System.out.println("Score: " + score);
@@ -134,7 +134,7 @@ public class BasicGameApp implements Runnable, KeyListener{
 			score +=1;
 			System.out.println("Score: " + score);
 		}
-		if(alien.rec.intersects(meteorite.rec)){
+		if(lavaMonster.rec.intersects(meteorite.rec)){
 			fireball.isAlive = false;
 			score +=1;
 			System.out.println("Score: " + score);
@@ -149,7 +149,7 @@ public class BasicGameApp implements Runnable, KeyListener{
 			score +=1;
 			System.out.println("Score: " + score);
 		}
-		if(alien.rec.intersects(astronaut.rec)){
+		if(lavaMonster.rec.intersects(astronaut.rec)){
 			fireball.isAlive = false;
 			score +=1;
 			System.out.println("Score: " + score);
@@ -205,7 +205,7 @@ public class BasicGameApp implements Runnable, KeyListener{
 		if(fireball.isAlive == false){
 			g.drawImage(background,0,0,1000,1000, null);
 			g.drawImage(fireballPic, fireball.xpos, fireball.ypos, fireball.width, fireball.height, null);
-			g.drawImage(alienPic, alien.xpos, alien.ypos, alien.width, alien.height, null);
+			g.drawImage(lavaMonsterPic, lavaMonster.xpos, lavaMonster.ypos, lavaMonster.width, lavaMonster.height, null);
 			g.drawImage(meteoritePic, meteorite.xpos, meteorite.ypos, meteorite.width, meteorite.height,null);
 			g.drawImage(astronautPic, astronaut.xpos, astronaut.ypos, astronaut.width, astronaut.height,null);
 
@@ -234,20 +234,20 @@ public class BasicGameApp implements Runnable, KeyListener{
 			fireball.isAlive = false;
 		}
 		if(e.getKeyCode() == 68){
-			alien.dx = 10;
-			alien.dy = 0;
+			lavaMonster.dx = 10;
+			lavaMonster.dy = 0;
 		}
 		if(e.getKeyCode() == 87){
-			alien.dx = 0;
-			alien.dy = -10;
+			lavaMonster.dx = 0;
+			lavaMonster.dy = -10;
 		}
 		if(e.getKeyCode() == 65){
-			alien.dx = -10;
-			alien.dy = 0;
+			lavaMonster.dx = -10;
+			lavaMonster.dy = 0;
 		}
 		if(e.getKeyCode() == 83){
-			alien.dx = 0;
-			alien.dy = 10;
+			lavaMonster.dx = 0;
+			lavaMonster.dy = 10;
 		}
 		if(e.getKeyCode() == 37){
 			astronaut.dx = -10;
@@ -270,20 +270,20 @@ public class BasicGameApp implements Runnable, KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == 68){
-			alien.dx = 0;
-			alien.dy = 0;
+			lavaMonster.dx = 0;
+			lavaMonster.dy = 0;
 		}
 		if(e.getKeyCode() == 87){
-			alien.dx = 0;
-			alien.dy = 0;
+			lavaMonster.dx = 0;
+			lavaMonster.dy = 0;
 		}
 		if(e.getKeyCode() == 65){
-			alien.dx = 0;
-			alien.dy = 0;
+			lavaMonster.dx = 0;
+			lavaMonster.dy = 0;
 		}
 		if(e.getKeyCode() == 83){
-			alien.dx = 0;
-			alien.dy = 0;
+			lavaMonster.dx = 0;
+			lavaMonster.dy = 0;
 		}
 		if(e.getKeyCode() == 37){
 			astronaut.dx = 0;

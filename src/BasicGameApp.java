@@ -44,13 +44,15 @@ public class BasicGameApp implements Runnable, KeyListener{
 	public Image background;
 	public Image lavaMonsterPic;
 	public Image meteoritePic;
-
 	public Image astronautPic;
+	public Image gameoverPic;
+	public Image winPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 	public Fireball[] aFireball;
 	private Fireball fireball;
+	public LavaMonster[] aLavaMonster;
 	private LavaMonster lavaMonster;
 	private Meteorite meteorite;
 	private Astronaut astronaut;
@@ -61,6 +63,10 @@ public class BasicGameApp implements Runnable, KeyListener{
 	public static void main(String[] args) {
 		BasicGameApp ex = new BasicGameApp();   //creates a new instance of the game
 		new Thread(ex).start();                 //creates a threads & starts up the code in the run( ) method  
+	}
+
+	public void Display(){
+		System.out.println("Hit the Space Bar to start, and immediately use the arrow keys to move the astronaut from the bottom to top of the screen by avoiding the fireballs, lava monsters, and ");
 	}
 
 
@@ -77,16 +83,23 @@ public class BasicGameApp implements Runnable, KeyListener{
 		fireballPic = Toolkit.getDefaultToolkit().getImage("Fireball.png"); //load the picture
 		lavaMonsterPic = Toolkit.getDefaultToolkit().getImage("LavaMonster.png"); //load the picture
 		meteoritePic = Toolkit.getDefaultToolkit().getImage("Meteorite.png"); //load the picture
-		astronautPic = Toolkit.getDefaultToolkit().getImage("Astronaut.png"); //load the picture
 		background = Toolkit.getDefaultToolkit().getImage("Background.png"); //load the picture
-		fireball = new Fireball(400,100,100,100,10,10);
-		aFireball = new Fireball[500];
-		for(int i = 0; i < 500; i++){
-			aFireball[i] = new Fireball((int)(Math.random() * 100), (int) (Math.random()* 80), 50, 100, 4, 5);
+		gameoverPic = Toolkit.getDefaultToolkit().getImage("GameOver.png"); //load the picture
+		winPic = Toolkit.getDefaultToolkit().getImage("Win.png"); //load the picture
+		astronautPic = Toolkit.getDefaultToolkit().getImage("Astronaut.png"); //load the picture
+
+		fireball = new Fireball(400,1000,100,100,10);
+		aFireball = new Fireball[5];
+		for(int i = 0; i < aFireball.length; i++){
+			aFireball[i] = new Fireball((int)(Math.random() * 1000), (int) (Math.random()* 700), 50, 100, 10);
 		}
-		lavaMonster = new LavaMonster(50,40,50,50,10,10);
-		meteorite = new Meteorite(400,100,50,75,10,10);
-		astronaut = new Astronaut(100,40,50,50,10,10);
+			lavaMonster = new LavaMonster(200,1,75,100,10,10);
+		aLavaMonster = new LavaMonster[2];
+		for(int j = 0; j < aLavaMonster.length; j++){
+			aLavaMonster[j] = new LavaMonster((int)(Math.random() * 1000), (int) (Math.random()* 700), 50, 100, 2, 2);
+		}
+		meteorite = new Meteorite(400,100,50,75,15,15);
+		astronaut = new Astronaut(WIDTH/2,500,63,63,10,10);
 
 	}// BasicGameApp()
 
@@ -114,8 +127,11 @@ public class BasicGameApp implements Runnable, KeyListener{
 	public void moveThings()
 	{
       //calls the move( ) code in the objects
-		for(int i = 0; i < 500; i++){
+		for(int i = 0; i < aFireball.length; i++){
 			aFireball[i].move();
+		}
+		for(int i = 0; i < aLavaMonster.length; i++){
+			aLavaMonster[i].move();
 		}
 		fireball.move();
 		lavaMonster.move();
@@ -124,37 +140,22 @@ public class BasicGameApp implements Runnable, KeyListener{
 	}
 
 	public void checkIntersections(){
-		if(fireball.rec.intersects(lavaMonster.rec)){
-			fireball.isAlive = false;
-			score +=1;
-			System.out.println("Score: " + score);
-		}
-		if(fireball.rec.intersects(meteorite.rec)){
-			fireball.isAlive = false;
-			score +=1;
-			System.out.println("Score: " + score);
-		}
-		if(lavaMonster.rec.intersects(meteorite.rec)){
-			fireball.isAlive = false;
-			score +=1;
-			System.out.println("Score: " + score);
-		}
 		if(fireball.rec.intersects(astronaut.rec)){
 			fireball.isAlive = false;
 			score +=1;
 			System.out.println("Score: " + score);
 		}
-		if(astronaut.rec.intersects(meteorite.rec)){
-			fireball.isAlive = false;
+		if(meteorite.rec.intersects(astronaut.rec)){
+			meteorite.isAlive = false;
 			score +=1;
 			System.out.println("Score: " + score);
 		}
 		if(lavaMonster.rec.intersects(astronaut.rec)){
-			fireball.isAlive = false;
+			lavaMonster.isAlive = false;
 			score +=1;
 			System.out.println("Score: " + score);
 		}
-	}
+		}
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
    public void pause(int time ){
@@ -202,22 +203,41 @@ public class BasicGameApp implements Runnable, KeyListener{
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
-		if(fireball.isAlive == false){
-			g.drawImage(background,0,0,1000,1000, null);
-			g.drawImage(fireballPic, fireball.xpos, fireball.ypos, fireball.width, fireball.height, null);
-			g.drawImage(lavaMonsterPic, lavaMonster.xpos, lavaMonster.ypos, lavaMonster.width, lavaMonster.height, null);
-			g.drawImage(meteoritePic, meteorite.xpos, meteorite.ypos, meteorite.width, meteorite.height,null);
-			g.drawImage(astronautPic, astronaut.xpos, astronaut.ypos, astronaut.width, astronaut.height,null);
+	//	if(fireball.isAlive == false){
 
-			for(int i = 0; i < 500; i++){
-				g.drawImage(fireballPic, aFireball[i].xpos, aFireball[i].ypos, aFireball[i].width, aFireball[i].height, null);
+			if(score >= 5){
+				g.drawImage(gameoverPic,0,0,1000,1000, null);
+			}else {
+			if(astronaut.ypos == 1){
+					g.drawImage(winPic,0,0,1000,1000, null);
+			}else{
+					g.drawImage(background,0,0,1000,1000, null);
+					g.drawImage(fireballPic, fireball.xpos, fireball.ypos, fireball.width, fireball.height, null);
+					g.drawImage(lavaMonsterPic, lavaMonster.xpos, lavaMonster.ypos, lavaMonster.width, lavaMonster.height, null);
+					g.drawImage(meteoritePic, meteorite.xpos, meteorite.ypos, meteorite.width, meteorite.height,null);
+					g.drawImage(astronautPic, astronaut.xpos, astronaut.ypos, astronaut.width, astronaut.height,null);
+
+					for(int i = 0; i < aFireball.length; i++){
+						g.drawImage(fireballPic, aFireball[i].xpos, aFireball[i].ypos, aFireball[i].width, aFireball[i].height, null);
+					}
+
+					for(int i = 0; i < aLavaMonster.length; i++){
+						g.drawImage(lavaMonsterPic, aLavaMonster[i].xpos, aLavaMonster[i].ypos, aLavaMonster[i].width, aLavaMonster[i].height, null);
+					}
+					g.setColor(Color.ORANGE);
+					g.fillRect(715,5,200,200);
+					g.setColor(Color.BLACK);
+					g.drawString("SCORE: " + score,725,20);
+					g.drawString("Hit any arrow key and then",725,40);
+					g.drawString("the spacebar to start the game!",725,60);
+					g.drawString("Use the arrow keys to move up",725,80);
+					g.drawString("the screen to the top by ",725,100);
+					g.drawString("avoiding the objects, and",725,120);
+					g.drawString("then attempt to go back to",725,140);
+					g.drawString("the bottom! The game is never",725,160);
+					g.drawString("ending unless you hit an object!",725,180);
+				}
 			}
-
-			g.setColor(Color.ORANGE);
-			g.fillRect(715,5,75,20);
-			g.setColor(Color.BLACK);
-			g.drawString("SCORE: " + score,725,20);
-		}
       //draw the image of the astronaut
 		g.dispose();
 
@@ -232,22 +252,6 @@ public class BasicGameApp implements Runnable, KeyListener{
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == 13){
 			fireball.isAlive = false;
-		}
-		if(e.getKeyCode() == 68){
-			lavaMonster.dx = 10;
-			lavaMonster.dy = 0;
-		}
-		if(e.getKeyCode() == 87){
-			lavaMonster.dx = 0;
-			lavaMonster.dy = -10;
-		}
-		if(e.getKeyCode() == 65){
-			lavaMonster.dx = -10;
-			lavaMonster.dy = 0;
-		}
-		if(e.getKeyCode() == 83){
-			lavaMonster.dx = 0;
-			lavaMonster.dy = 10;
 		}
 		if(e.getKeyCode() == 37){
 			astronaut.dx = -10;
@@ -265,26 +269,14 @@ public class BasicGameApp implements Runnable, KeyListener{
 			astronaut.dx = 0;
 			astronaut.dy = 10;
 		}
+		if(e.getKeyCode() == 32){
+			astronaut.xpos = 500;
+			astronaut.ypos = 615;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == 68){
-			lavaMonster.dx = 0;
-			lavaMonster.dy = 0;
-		}
-		if(e.getKeyCode() == 87){
-			lavaMonster.dx = 0;
-			lavaMonster.dy = 0;
-		}
-		if(e.getKeyCode() == 65){
-			lavaMonster.dx = 0;
-			lavaMonster.dy = 0;
-		}
-		if(e.getKeyCode() == 83){
-			lavaMonster.dx = 0;
-			lavaMonster.dy = 0;
-		}
 		if(e.getKeyCode() == 37){
 			astronaut.dx = 0;
 			astronaut.dy = 0;

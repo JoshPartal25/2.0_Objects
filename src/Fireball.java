@@ -26,11 +26,11 @@ public class Fireball {
 
     //This is a SECOND constructor that takes 3 parameters.  This allows us to specify the hero's name and position when we build it.
     // if you put in a String, an int and an int the program will use this constructor instead of the one above.
-    public Fireball(int pXpos, int pYpos, int pHeight, int pWidth, int pDx, int pDy) {
+    public Fireball(int pXpos, int pYpos, int pHeight, int pWidth, int pDx) {
         xpos = pXpos;
         ypos = pYpos;
         dx = pDx;
-        dy = pDy;
+        dy = 0;
         width = pWidth;
         height = pHeight;
         rec = new Rectangle(xpos, ypos, height, width);
@@ -43,28 +43,41 @@ public class Fireball {
         rec = new Rectangle(xpos, ypos, height, width);
 
         xpos = xpos + dx;
-        ypos = ypos + dy;
-
-    if(xpos >= 990){
-        dx = -10;
-        //width = width + 20;
-        //height = height +20;
-    }
-    if(xpos <= 0){
-        dx = 10;
-        //width = width +20;
-        //height = height +20;
-    }
-    if(ypos<=0){
-            dy=10;
+        ypos = ypos+ dy;
+//        if (xpos >= 990) {
+//            dx = -10;
+//            //width = width +20;
+//            //height = height +20;
+//        }
+//        if (xpos <= 0) {
+//            dx = 10;
+//        }
+        if(xpos > 990){
+            xpos = 0;
+            //width = width +20;
+            //height = height +20;
+        }
+        if(xpos<0){
+            xpos = 1000;
+        }
+        if(ypos> 990){
+            ypos = 0;
+            //width = width +20;
+            //height = height +20;
+        }
+        if(ypos<0){
+            ypos = 1000;
+        }
+        //if(ypos<=0){
+        //dy=10;
         //width+=30;
         //height+=30;
-    }
-    if(ypos>=690){
-        dy=-10;
+        //}
+        //if(ypos>=690){
+        // dy=-10;
         //width+=30;
         //width+=30;
-        }
+        //}
     }
 }
 

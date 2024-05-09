@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 
-public class LavaMonster{
+public class LavaMonster {
 
     //VARIABLE DECLARATION SECTION
     //Here's where you state which variables you are going to use.
@@ -39,7 +39,20 @@ public class LavaMonster{
         rec = new Rectangle(xpos, ypos, height, width);
 
         xpos = xpos + dx;
-        ypos = ypos + dy;
+        ypos = 315;
+        if (xpos >= 990) {
+            dx = -10;
+            //width = width +20;
+            //height = height +20;
+        }
+        if (xpos <= 0) {
+            dx = 10;
+        }
+        if (xpos >= 990) {
+            xpos = 0;
+        }
+    }
+}
         //if (xpos >= 990) {
            // dx = 0;
             //width = width +20;
@@ -52,7 +65,7 @@ public class LavaMonster{
             //xpos = 0;
             //width = width +20;
             //height = height +20;
-        }
+
     //if(ypos<=0){
         //dy=10;
         //width+=30;
@@ -63,5 +76,5 @@ public class LavaMonster{
         //width+=30;
         //width+=30;
         //}
-    }
+
 

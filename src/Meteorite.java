@@ -38,29 +38,28 @@ public class Meteorite {
         rec = new Rectangle(xpos, ypos, height, width);
 
         xpos = xpos + dx;
-        ypos = 315;
-        if (xpos >= 990) {
-            dx = -10;
-            //width = width +20;
-            //height = height +20;
-        }
-        if (xpos <= 0) {
-            dx = 10;
-        }
+        ypos = ypos + dy;
+
         if(xpos >= 990){
-            xpos = 0;
+            dx = -dx;
+            //width = width + 20;
+            //height = height +20;
+        }
+        if(xpos <= 0){
+            dx = -dx;
             //width = width +20;
             //height = height +20;
         }
-        //if(ypos<=0){
-        //dy=10;
-        //width+=30;
-        //height+=30;
-        //}
-        //if(ypos>=690){
-        // dy=-10;
-        //width+=30;
-        //width+=30;
-        //}
+        if(ypos<=0){
+            dy = -dy;
+            //width+=30;
+            //height+=30;
+        }
+        if(ypos>=690){
+            dy = -dy;
+            //width+=30;
+            //width+=30;
+        }
     }
+
 }
